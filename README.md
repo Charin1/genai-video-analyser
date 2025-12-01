@@ -369,5 +369,3 @@ Interactive API docs available at:
 For issues and questions, please open a GitHub issue.
 
 ---
-
-**Built with ❤️ using Google GenAI**
