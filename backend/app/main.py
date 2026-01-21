@@ -25,9 +25,11 @@ async def root():
 async def health_check():
     return {"status": "healthy"}
 
-from app.api import video, mcp, a2a
+from app.api import video, mcp, a2a, strategic, config
 app.include_router(video.router, prefix="/api/v1", tags=["video"])
 app.include_router(mcp.router, prefix="/mcp/v1", tags=["mcp"])
 app.include_router(a2a.router, prefix="/a2a/v1", tags=["a2a"])
+app.include_router(strategic.router, prefix="/api/v1/strategic", tags=["strategic"])
+app.include_router(config.router, prefix="/api/v1/config", tags=["config"])
 
 

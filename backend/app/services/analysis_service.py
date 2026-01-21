@@ -1,44 +1,47 @@
-from app.services.llm_service import llm_service
-from app.services.rag_service import rag_service
+from app.services.llm_factory import llm_factory
+from app.services.knowledge_graph_service import knowledge_graph_service
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.output_parsers import JsonOutputParser
 import json
 
 class AnalysisService:
-    async def analyze_video_transcript(self, transcript: str, filename: str):
-        """
-        Analyze transcript to generate a structured report.
-        """
-        # 1. Store in RAG for future queries
-        await rag_service.add_document(transcript, {"filename": filename})
+    async def analyze_video_transcript(self, transcript: str, filename: str, llm_model: str = None):
         
-        # 2. Determine Domain/Context
-        domain_prompt = f"""
-        Analyze the following transcript and determine the business domain (e.g., SaaS Sales, Real Estate, Medical, EdTech).
-        Also suggest 5 key fields that should be in a report for this domain.
+        # 1. Graph Extraction (Fire and forget or await)
+        await knowledge_graph_service.process_transcript_for_graph(transcript, filename)
+
+        # 2. Main Analysis with LangChain
+        llm = llm_factory.get_llm(model_name=llm_model)
+
+        # Chain 1: Domain Detection
+        domain_prompt = ChatPromptTemplate.from_messages([
+            ("system", "Analyze the transcript. Determine domain and suggested report fields. Return JSON."),
+            ("user", "Transcript: {transcript}")
+        ])
+        domain_chain = domain_prompt | llm | JsonOutputParser()
         
-        Transcript start: {transcript[:1000]}...
+        try:
+            domain_data = await domain_chain.ainvoke({"transcript": transcript[:2000]})
+        except Exception as e:
+            # Fallback
+            domain_data = {"domain": "General", "fields": ["Summary", "Key Points"]}
+
+        # Chain 2: Report Generation
+        fields = domain_data.get("fields", ["Summary", "Action Items"])
         
-        Return JSON: {{ "domain": "...", "fields": ["field1", "field2", ...] }}
-        """
-        domain_resp = await llm_service.generate_json(domain_prompt)
-        domain_resp = await llm_service.generate_json(domain_prompt)
-        domain_data = json.loads(domain_resp.replace("```json", "").replace("```", "").strip())
+        report_prompt = ChatPromptTemplate.from_messages([
+            ("system", f"Generate a report with these fields: {fields}. Return JSON object."),
+            ("user", "Transcript: {transcript}")
+        ])
+        report_chain = report_prompt | llm | JsonOutputParser()
         
-        # 3. Generate Report based on dynamic fields
-        fields = domain_data.get("fields", ["Summary", "Action Items", "Sentiment"])
-        
-        report_prompt = f"""
-        Generate a detailed report for the following transcript based on these fields: {fields}.
-        
-        Transcript: {transcript}
-        
-        Return a single JSON object (dictionary) where keys are the fields and values are the analysis. 
-        Do NOT return a list.
-        """
-        report_resp = await llm_service.generate_json(report_prompt)
-        report_data = json.loads(report_resp.replace("```json", "").replace("```", "").strip())
+        try:
+            report_data = await report_chain.ainvoke({"transcript": transcript})
+        except Exception as e:
+             report_data = {"error": str(e)}
         
         return {
-            "domain": domain_data["domain"],
+            "domain": domain_data.get("domain", "General"),
             "report": report_data
         }
 

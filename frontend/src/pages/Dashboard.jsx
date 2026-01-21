@@ -55,7 +55,7 @@ const Dashboard = () => {
                 </div>
                 <div>
                     <p className="text-sm text-[var(--text-muted)] uppercase tracking-wider font-medium">{label}</p>
-                    <p className="text-2xl font-bold text-white">{value}</p>
+                    <p className="text-2xl font-bold text-[var(--text-main)]">{value}</p>
                 </div>
             </div>
         );
@@ -73,13 +73,13 @@ const Dashboard = () => {
                         </span>
                         <span className="text-[var(--text-muted)] text-sm font-mono break-all">{data.filename}</span>
                     </div>
-                    <h1 className="text-3xl md:text-4xl font-bold text-white">Analysis Report</h1>
+                    <h1 className="text-3xl md:text-4xl font-bold text-[var(--text-main)]">Analysis Report</h1>
                 </div>
                 <div className="flex gap-3 w-full md:w-auto">
                     <button className="btn-cyber flex items-center gap-2 !py-2 !px-4 !text-sm flex-1 md:flex-initial justify-center">
                         <Share2 size={16} /> Share
                     </button>
-                    <a href={`${config.API_URL}/api/v1/download/${data.filename.replace('.', '_')}`} className="btn-cyber flex items-center gap-2 !py-2 !px-4 !text-sm !bg-[var(--primary-neon)] !text-black hover:!bg-white hover:!text-black flex-1 md:flex-initial justify-center">
+                    <a href={`${config.API_URL}/api/v1/download/${data.filename.replace('.', '_')}`} className="btn-cyber flex items-center gap-2 !py-2 !px-4 !text-sm !bg-[var(--primary-neon)] !text-white hover:!bg-[#047857] hover:!text-white flex-1 md:flex-initial justify-center">
                         <Download size={16} /> Export CSV
                     </a>
                 </div>
@@ -100,25 +100,25 @@ const Dashboard = () => {
                         <div key={key} className="cyber-card p-8" style={{ animationDelay: `${idx * 100}ms` }}>
                             <div className="flex items-center gap-3 mb-6">
                                 <div className="w-1 h-6 bg-[var(--secondary-neon)] rounded-full shadow-[0_0_10px_var(--secondary-neon)]"></div>
-                                <h3 className="text-xl font-bold capitalize text-white tracking-wide">
+                                <h3 className="text-xl font-bold capitalize text-[var(--text-main)] tracking-wide">
                                     {key.replace(/_/g, ' ')}
                                 </h3>
                             </div>
 
                             <div className="prose prose-invert max-w-none">
                                 {typeof value === 'string' ? (
-                                    <p className="text-gray-300 leading-relaxed text-lg">{value}</p>
+                                    <p className="text-[var(--text-main)] leading-relaxed text-lg">{value}</p>
                                 ) : Array.isArray(value) ? (
                                     <ul className="space-y-3">
                                         {value.map((item, i) => (
-                                            <li key={i} className="flex items-start gap-3 text-gray-300 bg-white/5 p-3 rounded-lg border border-white/5 hover:border-white/10 transition-colors">
+                                            <li key={i} className="flex items-start gap-3 text-gray-700 bg-gray-50 p-3 rounded-lg border border-gray-100 hover:border-gray-200 transition-colors">
                                                 <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[var(--primary-neon)] flex-shrink-0"></span>
                                                 <span>{item}</span>
                                             </li>
                                         ))}
                                     </ul>
                                 ) : (
-                                    <pre className="bg-[#050505] p-4 rounded-xl border border-white/10 overflow-x-auto font-mono text-sm text-[var(--primary-neon)]">
+                                    <pre className="bg-[#111827] p-4 rounded-xl border border-gray-200 overflow-x-auto font-mono text-sm text-[var(--primary-neon)]">
                                         {JSON.stringify(value, null, 2)}
                                     </pre>
                                 )}
@@ -131,12 +131,12 @@ const Dashboard = () => {
                 <div className="space-y-6">
                     {/* Transcript Card */}
                     <div className="cyber-card p-6 flex flex-col h-[600px]">
-                        <h3 className="text-lg font-bold mb-4 flex items-center gap-2 text-white">
+                        <h3 className="text-lg font-bold mb-4 flex items-center gap-2 text-[var(--text-main)]">
                             <FileText size={20} className="text-[var(--primary-neon)]" />
                             Transcript Stream
                         </h3>
                         <div className="flex-1 overflow-y-auto pr-2 scrollbar-thin space-y-4">
-                            <p className="text-sm text-gray-400 leading-relaxed font-mono">
+                            <p className="text-sm text-gray-600 leading-relaxed font-mono">
                                 {transcript}
                             </p>
                         </div>

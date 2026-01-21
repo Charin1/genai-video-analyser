@@ -7,10 +7,10 @@ export default {
     theme: {
         extend: {
             colors: {
-                'bg-deep': '#030014',
-                'bg-surface': '#0f0c29',
-                'primary-neon': '#00f3ff',
-                'secondary-neon': '#bc13fe',
+                'bg-deep': '#FFFFFF',
+                'bg-surface': '#F3F4F6',
+                'primary-neon': '#059669',   // Emerald Green
+                'secondary-neon': '#D97706', // Warm Amber
             },
             fontFamily: {
                 display: ['Space Grotesk', 'sans-serif'],
