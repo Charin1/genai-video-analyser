@@ -360,10 +360,6 @@ Interactive API docs available at:
 4. Push to the branch
 5. Create a Pull Request
 
-## 📄 License
-
-[Specify your license here]
-
 ## 🙋 Support
 
 For issues and questions, please open a GitHub issue.
