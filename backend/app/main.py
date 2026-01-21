@@ -17,6 +17,18 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.on_event("startup")
+async def on_startup():
+    from app.db.database import init_db, get_db_session
+    from app.db.seed import seed_database
+    
+    await init_db()
+    
+    # Run seed
+    async for db in get_db_session():
+        await seed_database(db)
+        break # Only need one session
+
 @app.get("/")
 async def root():
     return {"message": "GenAI Video Analysis Tool API is running"}
@@ -25,11 +37,12 @@ async def root():
 async def health_check():
     return {"status": "healthy"}
 
-from app.api import video, mcp, a2a, strategic, config
+from app.api import video, mcp, a2a, strategic, config, contacts
 app.include_router(video.router, prefix="/api/v1", tags=["video"])
 app.include_router(mcp.router, prefix="/mcp/v1", tags=["mcp"])
 app.include_router(a2a.router, prefix="/a2a/v1", tags=["a2a"])
 app.include_router(strategic.router, prefix="/api/v1/strategic", tags=["strategic"])
 app.include_router(config.router, prefix="/api/v1/config", tags=["config"])
+app.include_router(contacts.router, prefix="/api/v1", tags=["contacts"])
 
 

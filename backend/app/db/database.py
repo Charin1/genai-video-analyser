@@ -26,6 +26,10 @@ async def get_db():
         finally:
             await session.close()
 
+
 async def init_db():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
+
+# Alias for clarity in non-dependency contexts
+get_db_session = get_db

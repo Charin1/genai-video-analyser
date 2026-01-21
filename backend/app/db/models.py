@@ -26,3 +26,21 @@ class Insight(Base):
     content = Column(Text)
     
     meeting = relationship("Meeting", back_populates="insights")
+
+class Contact(Base):
+    __tablename__ = "contacts"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, index=True)
+    role = Column(String)
+    company = Column(String)
+    avatar = Column(String) # Initials
+    
+    # Enrichments
+    style = Column(String)
+    last_contact = Column(String)
+    total_meetings = Column(Integer, default=0)
+    
+    # JSON fields for flexible lists
+    topics = Column(Text) # JSON string of list[str]
+    timeline = Column(Text) # JSON string of list[TimelineEvent]

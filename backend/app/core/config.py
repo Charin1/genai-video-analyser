@@ -1,7 +1,7 @@
 from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
-    PROJECT_NAME: str = "GenAI Video Analysis Tool"
+    PROJECT_NAME: str = "NexusInsightStream"
     GOOGLE_API_KEY: str = ""
     GROQ_API_KEY: str = ""
     
