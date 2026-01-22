@@ -54,16 +54,63 @@ class TranscriptionService:
         """
         if method == 'groq':
             print("Using Groq Whisper for transcription...")
+            audio_path = None
             try:
                 audio_path = self.extract_audio_from_video(video_path)
-                text = self.transcribe_audio_groq(audio_path)
-                # Cleanup audio
-                if os.path.exists(audio_path):
-                    os.remove(audio_path)
-                return text
+                
+                # Check file size
+                file_size_mb = os.path.getsize(audio_path) / (1024 * 1024)
+                print(f"Audio file size: {file_size_mb:.2f} MB")
+                
+                if file_size_mb > 24: # Safety for 25MB limit
+                    print("File too large for single request. Chunking...")
+                    # Load audio to determine duration
+                    # We can use MoviePy's AudioFileClip to split
+                    from moviepy.editor import AudioFileClip
+                    
+                    full_audio = AudioFileClip(audio_path)
+                    duration = full_audio.duration
+                    
+                    # Split into 10-minute chunks (600 seconds)
+                    chunk_duration = 600
+                    chunks = int(duration / chunk_duration) + 1
+                    
+                    full_transcript = []
+                    
+                    for i in range(chunks):
+                        start = i * chunk_duration
+                        end = min((i + 1) * chunk_duration, duration)
+                        
+                        if start >= end: break
+                        
+                        print(f"Processing chunk {i+1}/{chunks} ({start}-{end}s)...")
+                        
+                        chunk_filename = f"{audio_path}_chunk_{i}.mp3"
+                        # Subclip and write
+                        chunk_clip = full_audio.subclip(start, end)
+                        chunk_clip.write_audiofile(chunk_filename, verbose=False, logger=None)
+                        
+                        # Transcribe chunk
+                        chunk_text = self.transcribe_audio_groq(chunk_filename)
+                        full_transcript.append(chunk_text)
+                        
+                        # Cleanup chunk
+                        chunk_clip.close()
+                        if os.path.exists(chunk_filename):
+                            os.remove(chunk_filename)
+                            
+                    full_audio.close()
+                    return " ".join(full_transcript)
+                else:
+                    text = self.transcribe_audio_groq(audio_path)
+                    return text
+
             except Exception as e:
                 print(f"Groq transcription failed: {e}. Falling back to Gemini...")
                 # Fallback to Gemini if Groq fails
+            finally:
+                if audio_path and os.path.exists(audio_path):
+                   os.remove(audio_path)
         
         # Default Gemini Flow
         try:

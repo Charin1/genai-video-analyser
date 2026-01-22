@@ -27,17 +27,46 @@ class AnalysisService:
             domain_data = {"domain": "General", "fields": ["Summary", "Key Points"]}
 
         # Chain 2: Report Generation
-        fields = domain_data.get("fields", ["Summary", "Action Items"])
+        # Enforce these fields regardless of domain
+        fields = ["Summary", "Key_Insights", "Promises_Made", "Next_Steps", "Conversation_Graph", "Intelligence"]
+        
+        # We need to guide the LLM on what "Conversation_Graph" means in this JSON context
+        # It should extract nodes/edges textually or summarize them if the graph DB is separate.
+        # OR better: we inject the graph data we just extracted into the prompt so the LLM can refine it for the report json.
+        
+        # Actually, let's just ask LLM to extract these as text lists/objects.
+        # "Conversation_Graph" in JSON can be a list of "Entity: Relation" strings for display.
         
         report_prompt = ChatPromptTemplate.from_messages([
-            ("system", f"Generate a report with these fields: {fields}. Return JSON object."),
+            ("system", f"""
+            Generate a detailed video analysis report in strict JSON format.
+            Domain identified: {domain_data.get('domain', 'General')}
+            
+            Structure the JSON with these exact keys:
+            - "Summary": "Executive summary of the content"
+            - "Key_Insights": ["List of key points"]
+            - "Promises_Made": ["List of commitments or promises detected"]
+            - "Next_Steps": ["List of action items"]
+            - "Conversation_Graph": {{ "People": [], "Companies": [], "Topics": [] }}  <-- Extract entities mentioned
+            - "Intelligence": {{ "Sentiment": "Positive/Neutral/Negative", "Tone": "String", "Complexity": "Low/Medium/High" }}
+            
+            Ensure all fields are present.
+            """),
             ("user", "Transcript: {transcript}")
         ])
+        
         report_chain = report_prompt | llm | JsonOutputParser()
         
         try:
             report_data = await report_chain.ainvoke({"transcript": transcript})
+            
+            # Merge the Neo4j graph data if we have it? 
+            # Actually, let's just rely on the LLM's fresh extraction for the report JSON display
+            # The Neo4j graph is for the graph view.
+            # But the user asked "that will also be generated right? just like in ui". 
+            # So the UI needs this data structure.
         except Exception as e:
+             print(f"Report generation error: {e}")
              report_data = {"error": str(e)}
         
         return {

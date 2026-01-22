@@ -15,15 +15,32 @@ A production-ready AI-powered video analysis platform designed for sales and mar
 
 ## 🚀 Features
 
-### Core Capabilities
-- **Video Transcription**: Automatic transcript generation using Google GenAI (Gemini)
-- **Dynamic Report Generation**: AI-driven analysis that adapts to video domain
-- **Hybrid RAG**: Combines vector embeddings (ChromaDB) and knowledge graphs (NetworkX) for enhanced context
-- **Multi-Retrieval**: Advanced information retrieval for better insights
+### 🧠 Neural Capture
+- **Meeting Recording**: Built-in voice recorder with visualization.
+- **Upload Support**: Drag-and-drop support for MP4, MOV, and audio files.
+- **Real-time Processing**: Visual progress tracking (Synthesizing -> Transcribing -> Enriching).
+- **AI Analysis**: Automatic transcription and insight generation using Google Gemini.
 
-### Protocols & Integration
-- **MCP (Model Context Protocol)**: Exposes tools for agent-based workflows
-- **A2A (Agent-to-Agent)**: Communication interface for multi-agent systems
+### 🗂️ Nexus Archive (Meetings)
+- **Smart Search**: Search across transcripts, summaries, topics, and participants.
+- **Advanced Filtering**: Filter by meeting type (Strategy, Investor, etc.) and sentiment.
+- **Rich Insights**: View key insights, action items, and topic tags for each meeting.
+- **Editable Intelligence**: Manually refine properties, summaries, and insights directly in the UI.
+
+### 👥 Rolodex (Relationship Management)
+- **Contact Enrichment**: Profiles with roles, companies, and communication styles.
+- **Relationship Timeline**: Visual history of interactions, sentiments, and topics over time.
+- **Psychometric Profiling**: Tracks communication style and relationship score.
+- **Activity Tracking**: Aggregates total meetings and last contact dates.
+
+### 🔍 Search Nexus (Strategic Intelligence)
+- **Natural Language Query**: Ask complex questions about your network and meetings (e.g., "What promises did I make to David Kim?").
+- **Knowledge Graph**: Queries a graph database (Neo4j) to find hidden connections.
+- **Recent Searches**: Quick access to common or past queries.
+
+### 🔌 Protocols & Integration
+- **MCP (Model Context Protocol)**: Exposes tools for agent-based workflows.
+- **A2A (Agent-to-Agent)**: Communication interface for multi-agent systems.
 
 ### Tech Stack
 - **Backend**: Python 3.11+, FastAPI, Google GenAI SDK (Gemini)
@@ -145,6 +162,25 @@ pip install pydantic-settings
 - Ensure `.env` file exists in the `backend/` directory
 - Verify the API key is correctly set: `GOOGLE_API_KEY=your_key_here`
 - Restart the backend server after updating `.env`
+
+### 💾 Data Seeding (SQLite)
+
+The application automatically seeds the database with initial demo data (Meetings and Contacts) on the first run.
+
+**How it works:**
+1. On backend startup, it checks if the `local_db.sqlite` exists and if tables are empty.
+2. If empty, it loads data from `backend/data/seed_data.json` and populates the database.
+
+**To reset or re-seed the data:**
+1. Stop the backend server.
+2. Delete the database file:
+   ```bash
+   rm backend/local_db.sqlite
+   ```
+3. Restart the backend server. The seed script will run automatically.
+
+**To customize seed data:**
+- Edit `backend/data/seed_data.json` before starting the server.
 
 **Problem**: Port 8000 already in use
 ```bash

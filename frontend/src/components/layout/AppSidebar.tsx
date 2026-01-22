@@ -68,7 +68,7 @@ export function AppSidebar() {
               </div>
             </div>
             <div className="flex flex-col">
-              <span className="font-space text-lg font-bold tracking-tight text-gradient leading-none">NEXUS</span>
+              <span className="font-space text-lg font-bold tracking-tight text-gradient leading-none">NexusInsightStream</span>
               <span className="text-[10px] font-medium text-muted-foreground tracking-widest uppercase">Neural Memory</span>
             </div>
           </div>
@@ -104,9 +104,9 @@ export function AppSidebar() {
       {/* Navigation */}
       <nav className="flex flex-col gap-1 p-3">
         {navigation.map((item) => {
-          const isActive = location.pathname === item.href || 
+          const isActive = location.pathname === item.href ||
             (item.href !== "/" && location.pathname.startsWith(item.href));
-          
+
           return (
             <Link
               key={item.name}

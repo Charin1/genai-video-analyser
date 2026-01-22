@@ -1,0 +1,159 @@
+{
+    "meetings": [
+        {
+            "title": "Q4 Strategic Review & Roadmap",
+            "days_ago": 2,
+            "summary_data": {
+                "Summary": "The Q4 Review meeting focused on evaluating key performance metrics, discussing the roadmap for the upcoming quarter, and addressing challenges in the engineering and sales departments. The team highlighted a strong finish to the year with revenue exceeding targets by 15%. Discussions also covered the new AI integration features, which are set to launch in Q1. There were concerns regarding server costs and team burnout, which need to be addressed immediately.",
+                "Key Insights": [
+                    "Revenue exceeded Q4 targets by 15%, driven by enterprise adoption.",
+                    "AI Integration features are on track for a Q1 launch but require final QA.",
+                    "Backend server costs have increased by 20% due to higher traffic.",
+                    "Engineering team is reporting signs of burnout; hiring plan needs acceleration."
+                ],
+                "Action Items": [
+                    "Finalize QA for AI Integration features by Jan 30.",
+                    "Audit cloud infrastructure to optimize server costs.",
+                    "Approve headcount for 2 new backend engineers.",
+                    "Schedule a team retrospective to address burnout concerns."
+                ],
+                "People": [
+                    "David Kim",
+                    "Sarah Chen",
+                    "Michael Ross",
+                    "Elena Rodriguez"
+                ],
+                "Companies": [
+                    "TechVentures",
+                    "Atlas Capital",
+                    "Stripe",
+                    "GreenTech Solutions"
+                ],
+                "Topics": [
+                    "Revenue",
+                    "AI Integration",
+                    "Hiring",
+                    "Burnout",
+                    "Infrastructure"
+                ]
+            },
+            "transcript_text": "David Kim: Alright everyone, let's get started with the Q4 review. Overall, I think we had a fantastic quarter.\nSarah Chen: I agree, David. The revenue numbers look great. We exceeded our targets by 15%, largely thanks to the new enterprise clients we onboarded in November.\nMichael Ross: That's excellent news. However, I want to bring up the server costs. With the traffic spike, our infrastructure bill went up by about 20%. We need to look into optimizing that.\nDavid Kim: Good point, Michael. I'll add that to the action items. We need an audit of our cloud usage.\nElena Rodriguez: What about the AI integration? Are we still on track for the Q1 launch?\nDavid Kim: Yes, the engineering team has made great progress. We're in the final testing phase. We should be ready to ship by the end of January.\nSarah Chen: Speaking of engineering, I'm seeing some signs of burnout in the team. We pushed hard for this release. We really need to accelerate the hiring plan for those backend roles.\nDavid Kim: I hear you, Sarah. Let's get those requisitions approved immediately. We can't afford to lose key people.\nMichael Ross: Agreed. I'll sign off on the budget for two new engineers.\nElena Rodriguez: Perfect. Let's also schedule a retrospective with the team to discuss how we can improve work-life balance moving forward.\nDavid Kim: Done. Great work everyone. Let's keep this momentum going into the new year.",
+            "file_path": "mock_file_path.mp4"
+        },
+        {
+            "title": "Acme Corp Partnership Sync",
+            "days_ago": 5,
+            "summary_data": {
+                "Summary": "This was a quick sync to discuss the partnership proposal from Acme Corp. The team analyzed the potential benefits and risks. The general consensus is positive, but legal needs to review the IP clauses carefully. The goal is to sign the MOU by next week.",
+                "Key Insights": [
+                    "Acme Corp partnership offers significant distribution channel access.",
+                    "IP indemnification clauses in the current draft are too broad.",
+                    "Revenue share split is favorable at 70/30."
+                ],
+                "Action Items": [
+                    "Send contract to Legal for IP clause review.",
+                    "Schedule follow-up call with Acme Corp for Tuesday.",
+                    "Draft press release for potential announcement."
+                ],
+                "People": [
+                    "Sarah Chen",
+                    "Elena Rodriguez",
+                    "John Smith (Acme)"
+                ],
+                "Companies": [
+                    "Acme Corp"
+                ],
+                "Topics": [
+                    "Partnership",
+                    "Legal",
+                    "Distribution"
+                ]
+            },
+            "transcript_text": "Sarah Chen: Thanks for joining. Quick update on the Acme Corp deal. They sent over the revised contract.\nElena Rodriguez: How does the revenue share look?\nSarah Chen: It's still 70/30 in our favor, which is great. But I'm worried about the IP indemnification section. It feels a bit too broad.\nElena Rodriguez: I see. We definitely need Legal to take a close look at that. we don't want any exposure there.\nSarah Chen: Agreed. I'll forward it to them today. If they clear it, do we want to sign the MOU next week?\nElena Rodriguez: Yes, let's aim for that. The distribution access they offer is too good to pass up.\nSarah Chen: Okay, I'll set up a follow-up call with their team for Tuesday.",
+            "file_path": "mock_file_path_2.mp4"
+        }
+    ],
+    "contacts": [
+        {
+            "name": "Sarah Chen",
+            "role": "CTO",
+            "company": "TechVentures",
+            "avatar": "SC",
+            "style": "Direct, Data-driven",
+            "last_contact": "6 months ago",
+            "total_meetings": 12,
+            "topics": [
+                "AI Ethics",
+                "M&A",
+                "Engineering"
+            ],
+            "timeline": [
+                {
+                    "id": 1,
+                    "date": "Jan 2024",
+                    "event": "Coffee at Starbucks",
+                    "topics": [
+                        "Merger",
+                        "Golf"
+                    ],
+                    "sentiment": "positive"
+                },
+                {
+                    "id": 2,
+                    "date": "Mar 2024",
+                    "event": "Board Meeting",
+                    "topics": [
+                        "Q1 Review",
+                        "Hiring"
+                    ],
+                    "sentiment": "neutral"
+                }
+            ]
+        },
+        {
+            "name": "Michael Ross",
+            "role": "Partner",
+            "company": "Atlas Capital",
+            "avatar": "MR",
+            "style": "Analytical, Reserved",
+            "last_contact": "8 months ago",
+            "total_meetings": 8,
+            "topics": [
+                "Series C",
+                "Valuation",
+                "Board"
+            ],
+            "timeline": []
+        },
+        {
+            "name": "David Kim",
+            "role": "VP Engineering",
+            "company": "Stripe",
+            "avatar": "DK",
+            "style": "Collaborative, Technical",
+            "last_contact": "3 weeks ago",
+            "total_meetings": 15,
+            "topics": [
+                "Payments",
+                "API",
+                "Integration"
+            ],
+            "timeline": []
+        },
+        {
+            "name": "Elena Rodriguez",
+            "role": "CEO",
+            "company": "GreenTech Solutions",
+            "avatar": "ER",
+            "style": "Visionary, Persuasive",
+            "last_contact": "7 months ago",
+            "total_meetings": 5,
+            "topics": [
+                "Sustainability",
+                "Partnership",
+                "Growth"
+            ],
+            "timeline": []
+        }
+    ]
+}

@@ -79,14 +79,13 @@ export default function NeuralCapture() {
             <CardContent className="p-8 flex flex-col items-center justify-center min-h-[320px]">
               <button
                 onClick={() => setIsRecording(!isRecording)}
-                className={`relative h-32 w-32 rounded-full flex items-center justify-center transition-all duration-300 ${
-                  isRecording
+                className={`relative h-32 w-32 rounded-full flex items-center justify-center transition-all duration-300 ${isRecording
                     ? "bg-destructive animate-pulse-glow"
                     : "bg-gradient-to-br from-primary to-secondary hover:scale-105"
-                }`}
+                  }`}
               >
                 <Mic className="h-12 w-12 text-primary-foreground" />
-                
+
                 {/* Audio wave animation */}
                 {isRecording && (
                   <div className="absolute inset-0 flex items-center justify-center">
@@ -105,11 +104,11 @@ export default function NeuralCapture() {
                   </div>
                 )}
               </button>
-              
+
               <p className="mt-6 text-sm text-muted-foreground">
                 {isRecording ? "Recording... Click to stop" : "Click to start recording"}
               </p>
-              
+
               {isRecording && (
                 <div className="flex items-center gap-2 mt-2 text-destructive">
                   <div className="h-2 w-2 rounded-full bg-destructive animate-pulse" />
@@ -171,11 +170,10 @@ export default function NeuralCapture() {
                     {processingSteps.map((step, index) => (
                       <div
                         key={step.id}
-                        className={`flex items-center gap-3 p-2 rounded-lg transition-all duration-300 ${
-                          index <= currentStepIndex
+                        className={`flex items-center gap-3 p-2 rounded-lg transition-all duration-300 ${index <= currentStepIndex
                             ? "opacity-100"
                             : "opacity-40"
-                        }`}
+                          }`}
                       >
                         {index < currentStepIndex ? (
                           <CheckCircle2 className="h-5 w-5 text-emerald-400" />
@@ -185,11 +183,10 @@ export default function NeuralCapture() {
                           <div className="h-5 w-5 rounded-full border-2 border-muted-foreground/30" />
                         )}
                         <span
-                          className={`text-sm ${
-                            index <= currentStepIndex
+                          className={`text-sm ${index <= currentStepIndex
                               ? "text-foreground"
                               : "text-muted-foreground"
-                          }`}
+                            }`}
                         >
                           {step.label}
                         </span>
@@ -198,7 +195,7 @@ export default function NeuralCapture() {
                   </div>
 
                   {processingStep === "complete" && (
-                    <Button variant="default" className="mt-6 w-full">
+                    <Button variant="default" className="mt-6 w-full" onClick={() => window.location.href = '/meetings'}>
                       View Analysis
                     </Button>
                   )}
